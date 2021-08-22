@@ -1,9 +1,13 @@
 
 // You need to edit this class
 
+import java.util.Random;
+
 abstract public class ProblemInfo {
 
-    public static final int numberOfTestCases = -1;
+    private static final Random RANDOM = new Random();
+
+    public static final int numberOfTestCases = 0;
 
     // the directory to save the test case input files
     public static final String inputsDirectory = "";

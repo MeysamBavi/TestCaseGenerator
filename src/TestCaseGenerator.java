@@ -38,6 +38,8 @@ public class TestCaseGenerator {
             ops.close();
 
             process.waitFor();
+            System.out.print(i + "-");
         }
+        System.out.println();
     }
 }
