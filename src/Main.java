@@ -2,7 +2,11 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
-        TestCaseGenerator generator = new TestCaseGenerator();
+
+        boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("windows");
+        System.out.println("isWindows: " + isWindows);
+        TestCaseGenerator generator = new TestCaseGenerator(isWindows);
+
         generator.generate();
     }
 }
