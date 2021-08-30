@@ -3,7 +3,7 @@
 
 import java.util.Random;
 
-abstract public class ProblemInfo {
+abstract public class Configuration {
 
     private static final Random RANDOM = new Random();
 
@@ -29,6 +29,9 @@ abstract public class ProblemInfo {
     public static String generateInput(int index) {
         return null;
     }
+
+    // the directory the console commands are executed in
+    public static final String workingDirectory = "";
 
     // this method gives the command that will be given to console to run the solution app
     // example: cd "C:\\src" && java Solution

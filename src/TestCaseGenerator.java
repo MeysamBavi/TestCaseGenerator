@@ -3,41 +3,38 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class TestCaseGenerator {
 
     public void generate() throws IOException, InterruptedException {
 
-        Path inputsPath = Paths.get(ProblemInfo.inputsDirectory).toAbsolutePath();
-        Path outputPath = Paths.get(ProblemInfo.outputsDirectory).toAbsolutePath();
+        ProcessBuilder builder = new ProcessBuilder().directory(new File(Configuration.workingDirectory));
 
-        for (int i = 0; i < ProblemInfo.numberOfTestCases; i++) {
-            File inputFile = new File(
-                    inputsPath.toString() +
-                            File.separator +
-                            ProblemInfo.generateInputFileName(i)
-            );
-            inputFile.createNewFile();
-            File outputFile = new File(
-                    outputPath.toString() +
-                            File.separator +
-                            ProblemInfo.generateOutputFileName(i)
-            );
-            outputFile.createNewFile();
+        Path inputsPath = Path.of(Configuration.inputsDirectory).toAbsolutePath();
+        Path outputsPath = Path.of(Configuration.outputsDirectory).toAbsolutePath();
 
-            String input = ProblemInfo.generateInput(i);
-            Files.writeString(inputFile.toPath(), input);
+        // creating directories if they don't exist
+        new File(inputsPath.toString()).mkdir();
+        new File(outputsPath.toString()).mkdir();
 
-            String command = ProblemInfo.getSolutionRunCommand(i) + " echo > " + outputFile.toPath().toAbsolutePath().toString();
+        for (int i = 0; i < Configuration.numberOfTestCases; i++) {
 
-            Process process = new ProcessBuilder("cmd.exe", "/c", command).start();
+            Path inputPath = Path.of(inputsPath.toString(), Configuration.generateInputFileName(i));
+            Path outputPath = Path.of(outputsPath.toString(), Configuration.generateOutputFileName(i));
+
+            String input = Configuration.generateInput(i);
+            Files.writeString(inputPath, input);
+
+            String command = Configuration.getSolutionRunCommand(i) + " echo > " + outputPath.toAbsolutePath();
+            Process process = builder.command("cmd.exe", "/c", command).start();
+
             PrintStream ops = new PrintStream(process.getOutputStream());
             ops.println(input);
             ops.flush();
             ops.close();
 
             process.waitFor();
+
             System.out.print(i + "-");
         }
         System.out.println();
