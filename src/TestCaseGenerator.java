@@ -43,7 +43,10 @@ public class TestCaseGenerator {
 
 
             Process process;
-            String command = problemConfigData.getSolutionRunCommand(i) + '>' + outputPath.toAbsolutePath();
+
+            String command = problemConfigData.getSolutionRunCommand(i);
+            builder.redirectOutput(outputPath.toFile());
+
             if (isWindows) {
                 process = builder.command("cmd", "/c", command).start();
             } else {
