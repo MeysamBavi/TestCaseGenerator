@@ -1,7 +1,7 @@
 # TestCaseGenerator
 A java program to generate test cases for programming problems. Websites like [quera](https://quera.ir/) can use these test cases to judge and grade questions.  
   
-It works both on windows and linux (not tested on linux yet. You can help me on that).
+It works both on windows and linux.
 
 ### How to use
 Create a class that implements `ProblemConfigData` interface then use the `generate` method of `TestCaseGenerator` object for generating. You can also simply edit the methods in `MyProblem` class and run `Main`.  
