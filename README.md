@@ -4,6 +4,6 @@ A java program to generate test cases for programming problems. Websites like [q
 It works both on windows and linux (not tested on linux yet. You can help me on that).
 
 ### How to use
-Edit the properties and methods in `ProblemConfigData.java`, then compile and run `Main`.  
+Create a class that implements `ProblemConfigData` interface then use the `generate` method of `TestCaseGenerator` object for generating. You can also simply edit the methods in `MyProblem` class and run `Main`.  
   
-The only 'programming' you need to do here is to rewrite the `generateInput` method; your solution **doesn't** have to be written in java.
+The only 'programming' you need to do here is to override the `generateInput` method; your solution **doesn't** have to be written in java.

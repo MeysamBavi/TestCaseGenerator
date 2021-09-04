@@ -5,7 +5,7 @@ public class Main {
 
         boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("windows");
         System.out.println("isWindows: " + isWindows);
-        TestCaseGenerator generator = new TestCaseGenerator(isWindows);
+        TestCaseGenerator generator = new TestCaseGenerator(isWindows, new MyProblem());
 
         generator.generate();
     }

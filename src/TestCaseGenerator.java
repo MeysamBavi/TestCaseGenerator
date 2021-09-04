@@ -7,33 +7,44 @@ import java.nio.file.Path;
 public class TestCaseGenerator {
 
     private final boolean isWindows;
+    private ProblemConfigData problemConfigData;
 
-    public TestCaseGenerator(boolean isWindows) {
+    public TestCaseGenerator(boolean isWindows, ProblemConfigData problemConfigData) {
         this.isWindows = isWindows;
+        this.problemConfigData = problemConfigData;
+    }
+
+    public ProblemConfigData getProblemConfigData() {
+        return problemConfigData;
+    }
+
+    public void setProblemConfigData(ProblemConfigData problemConfigData) {
+        this.problemConfigData = problemConfigData;
     }
 
     public void generate() throws IOException, InterruptedException {
 
-        ProcessBuilder builder = new ProcessBuilder().directory(new File(ProblemConfigData.workingDirectory));
+        ProcessBuilder builder = new ProcessBuilder().directory(new File(problemConfigData.getWorkingDirectory()));
 
-        Path inputsPath = Path.of(ProblemConfigData.inputsDirectory).toAbsolutePath();
-        Path outputsPath = Path.of(ProblemConfigData.outputsDirectory).toAbsolutePath();
+        Path inputsPath = Path.of(problemConfigData.getInputsDirectory()).toAbsolutePath();
+        Path outputsPath = Path.of(problemConfigData.getOutputsDirectory()).toAbsolutePath();
 
         // creating directories if they don't exist
         new File(inputsPath.toString()).mkdir();
         new File(outputsPath.toString()).mkdir();
 
-        for (int i = 0; i < ProblemConfigData.numberOfTestCases; i++) {
+        for (int i = 0; i < problemConfigData.getNumberOfTestCases(); i++) {
 
-            Path inputPath = Path.of(inputsPath.toString(), ProblemConfigData.generateInputFileName(i));
-            Path outputPath = Path.of(outputsPath.toString(), ProblemConfigData.generateOutputFileName(i));
+            Path inputPath = Path.of(inputsPath.toString(), problemConfigData.generateInputFileName(i));
+            Path outputPath = Path.of(outputsPath.toString(), problemConfigData.generateOutputFileName(i));
 
-            String input = ProblemConfigData.generateInput(i);
+            String input = problemConfigData.generateInput(i);
             Files.writeString(inputPath, input + '\n');
 
 
             Process process;
-            String command = ProblemConfigData.getSolutionRunCommand(i);
+
+            String command = problemConfigData.getSolutionRunCommand(i);
             builder.redirectOutput(outputPath.toFile());
 
             if (isWindows) {
