@@ -9,3 +9,5 @@ Create a class that implements `ProblemConfigData` interface then use the `gener
 Use `run.bat` on Windows and `run.sh` on Linux to compile and run the program.
   
 The only 'programming' you need to do here is to override the `generateInput` method; your solution **doesn't** have to be written in java.
+  
+For more information see [example](./src/example).
