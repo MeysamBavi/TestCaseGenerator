@@ -24,10 +24,14 @@ public class TestCaseGenerator {
 
     public void generate() throws IOException, InterruptedException {
 
-        ProcessBuilder builder = new ProcessBuilder().directory(new File(problemConfigData.getWorkingDirectory()));
+        Path workingDir = Path.of(problemConfigData.getWorkingDirectory());
+        ProcessBuilder builder = new ProcessBuilder().directory(workingDir.toFile());
 
-        Path inputsPath = Path.of(problemConfigData.getInputsDirectory()).toAbsolutePath();
-        Path outputsPath = Path.of(problemConfigData.getOutputsDirectory()).toAbsolutePath();
+        Path inputsPath = Path.of(problemConfigData.getInputsDirectory());
+        inputsPath = workingDir.resolve(inputsPath);
+
+        Path outputsPath = Path.of(problemConfigData.getOutputsDirectory());
+        outputsPath = workingDir.resolve(outputsPath);
 
         // creating directories if they don't exist
         new File(inputsPath.toString()).mkdir();
