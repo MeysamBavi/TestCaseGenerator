@@ -12,18 +12,25 @@ public class ProblemOne implements ProblemConfigData {
     }
 
     @Override
-    public int getNumberOfTestCases() {
-        return 30;
+    public String getWorkingDirectory() {
+        return "/src/ProblemOne";
     }
 
+    //Inputs and Outputs directories can be relative to working directory.
     @Override
     public String getInputsDirectory() {
-        return "C:\\src\\ProblemOne\\in";
+        return "./in";
+    }
+
+    //Inputs and Outputs directories can be relative to working directory.
+    @Override
+    public String getOutputsDirectory() {
+        return "./out";
     }
 
     @Override
-    public String getOutputsDirectory() {
-        return "C:\\src\\ProblemOne\\out";
+    public int getNumberOfTestCases() {
+        return 10;
     }
 
     @Override
@@ -31,12 +38,7 @@ public class ProblemOne implements ProblemConfigData {
         return (RANDOM.nextInt(101) - 50) + " " + (RANDOM.nextInt(101) - 50);
     }
 
-    @Override
-    public String getWorkingDirectory() {
-        return "C:\\src\\ProblemOne";
-    }
-
-    //if solution.py is stored in the working directory, you can run it directly
+    //Because solution.py is in the working directory, we can run it directly
     @Override
     public String getSolutionRunCommand(int index) {
         return "python solution.py";
